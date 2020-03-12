@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, name='viewport'/>
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+  <style>
+
+    :root {                                          /*found this code that initialises formatting to help fix unexpected browser bugs*/
+      border: 0;
+	    margin: 0;
+	    padding: 0;
+      font: inherit;
+	    font-size: 100%;
+      vertical-align: baseline;
+      overflow-x: hidden;
+    }
+
+    .search {
+      margin: 0 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+    }
+
+    .search__input {
+      padding: 1rem;
+      margin: 1rem;
+      font-size: 1.75rem;
+    }
+
+    .search__button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background-color: lightblue;
+
+    }
+
+    .search__button:hover {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background-color: pink;
+    }
+
+    .result {
+      margin: 1rem 0 1rem;
+      width:100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+    .result__image {
+      width: 45%;
+      height:auto;
+      align-items: center;
+    }
+
+    .result__example {
+      width: 40%;
+      font-size: 2.5rem;
+      align-items: center;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .search__button:active {
+        background-color: pink;
+      }
+    
+      .result {
+        flex-direction: column;
+        width:100%;
+        align-items: center;
+      }
+
+      .result__image {
+        width: 90%;
+      }
+
+      .result__example {
+        width: 80%;
+        text-align: center;
+      }
+    }
+
+  </style>
+</head>
+<body class="wrapper">
+
+    <form class="search">
+        <input type="text" id="search" name="search" class="search__input">
+        <button type="submit" id="searchInput" class="search search__button">Find me some fun!</button>
+    </form>
+
+    <section id="gif" class="result">
+      <img id="gifImg" src="https://media.giphy.com/media/26n6WywJyh39n1pBu/giphy.gif" alt="search gif"  class="result result__image">
+      
+      <p id="example" class="result result__example">Search for anything!</p>
+    </section>
+
+    <script>
+      document.querySelector('#searchInput').addEventListener('click', event => {
+        event.preventDefault();
+
+        let userSearch = document.getElementById("search").value;
+
+        fetch("https://api.giphy.com/v1/gifs/search?api_key=VwCcM7rhLGLBv3ZnJCueI9n3AVBeVH3z&q=" + userSearch + "&limit=1&offset=0&rating=R&lang=en")
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById("gifImg").src = "https://media.giphy.com/media/" + data.data[0].id + "/giphy.gif";
+            document.getElementById("gifImg").alt = userSearch + " gif";
+          })
+          .catch(console.error);
+
+        fetch('http://api.urbandictionary.com/v0/define?term=' + userSearch)
+          .then(response => response.json())
+          .then(data => {
+            let example = data.list[0].example.replace(/[[\]]/g,'');
+            document.getElementById("example").innerHTML = example;
+            })
+          .catch(console.error);
+      });
+    </script>
+  </body>
+</html>
