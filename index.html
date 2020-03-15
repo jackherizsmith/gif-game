@@ -8,6 +8,7 @@
   <meta name="author" content="JHERIZSMITH">
   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="http://icons.iconarchive.com/icons/sykonist/looney-tunes/256/Wile-E-Coyote-icon.png">
   <style>
 
     :root {                                          /*found this code that initialises formatting to help fix unexpected browser bugs*/
@@ -95,7 +96,7 @@
 
     <form class="search">
         <input type="text" id="search" name="search" class="search__input">
-        <button type="submit" id="searchInput" class="search search__button">Find me some fun!</button>
+        <button type="submit" id="searchInput" class="search search__button">Find me some ...</button>
     </form>
 
     <section id="gif" class="result">
@@ -105,10 +106,17 @@
     </section>
 
     <script>
+
       document.querySelector('#searchInput').addEventListener('click', event => {
         event.preventDefault();
 
         let userSearch = document.getElementById("search").value;
+        
+        document.getElementById("searchInput").textContent = "Find me some " + userSearch;
+        document.getElementById("gifImg").src = "https://media.giphy.com/media/26n6WywJyh39n1pBu/giphy.gif";
+        document.getElementById("gifImg").alt = "search gif";
+        document.getElementById("example").textContent = "Just getting a " + userSearch + "caption";
+
 
         fetch("https://api.giphy.com/v1/gifs/search?api_key=VwCcM7rhLGLBv3ZnJCueI9n3AVBeVH3z&q=" + userSearch + "&limit=1&offset=0&rating=R&lang=en")
           .then(response => response.json())
