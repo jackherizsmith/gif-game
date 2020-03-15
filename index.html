@@ -3,9 +3,9 @@
 <head>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, name='viewport'/>
   <meta charset="utf-8">
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+  <title>GIF FUN</title>
+  <meta name="description" content="GIF FUN">
+  <meta name="author" content="JHERIZSMITH">
   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
   <style>
@@ -118,7 +118,7 @@
           })
           .catch(console.error);
 
-        fetch('http://api.urbandictionary.com/v0/define?term=' + userSearch)
+        fetch('https://api.urbandictionary.com/v0/define?term=' + userSearch)
           .then(response => response.json())
           .then(data => {
             let example = data.list[0].example.replace(/[[\]]/g,'');
